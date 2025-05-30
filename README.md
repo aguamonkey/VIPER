@@ -1,305 +1,243 @@
-🏗️ VIPER Architecture Pattern for iOS
-Show Image
-Show Image
-Show Image
-Show Image
-A comprehensive example of VIPER architecture implementation in Swift, demonstrating clean architecture principles and SOLID design patterns.
-📱 What You'll See When Running
-When you run this app, you'll see:
+# 🏗️ VIPER Architecture Pattern for iOS
 
-Launch Screen → Navigation Controller with UserList
-User List Screen:
+[![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://swift.org)  [![iOS](https://img.shields.io/badge/iOS-13.0+-blue.svg)](https://developer.apple.com/ios/)  [![Architecture](https://img.shields.io/badge/Architecture-VIPER-green.svg)](https://www.objc.io/issues/13-architecture/viper/)  [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
-Table view showing a list of users
-Pull-to-refresh functionality
-Loading indicator during data fetch
-Each cell shows user name and email
+A comprehensive example of VIPER architecture in Swift, demonstrating clean architecture principles and SOLID design patterns.
 
+---
 
-User Selection:
+## 📖 Table of Contents
 
-Tap any user to navigate to detail screen
-Currently shows basic alert (ready for full detail implementation)
+1. [Overview](#%EF%B8%8F-overview)
+2. [Screens & Flow](#--screens--flow)
+3. [Getting Started](#-getting-started)
+4. [Project Structure](#-project-structure)
+5. [Folder & File Guide](#-folder--file-guide)
+6. [Architecture Benefits](#-architecture-benefits)
+7. [SOLID Principles](#-solid-principles)
+8. [Use Cases](#-use-cases)
+9. [Testing](#-testing)
+10. [Best Practices](#-best-practices)
+11. [Extending the Architecture](#-extending-the-architecture)
+12. [Contributing](#-contributing)
+13. [Resources](#-resources)
+14. [License](#-license)
 
+---
 
+## 🎯 Overview
 
-Screenshots Flow:
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   Loading...    │ --> │   User List     │ --> │  User Details   │
-│                 │     │ ┌─────────────┐ │     │                 │
-│       ⟳         │     │ │ John Doe    │ │     │  Name: John     │
-│                 │     │ │ john@...    │ │     │  Email: ...     │
-│                 │     │ ├─────────────┤ │     │  [Call] [Email] │
-└─────────────────┘     │ │ Jane Smith  │ │     └─────────────────┘
-                        │ │ jane@...    │ │
-                        │ └─────────────┘ │
-                        └─────────────────┘
-🎯 Overview
-VIPER stands for:
+**VIPER** stands for:
 
-View: UI layer (UIViewController, UIView)
-Interactor: Business logic layer
-Presenter: Presentation logic & formatting
-Entity: Data models
-Router: Navigation & module assembly
+* **View**: UI layer (UIViewController, UIView)
+* **Interactor**: Business logic layer
+* **Presenter**: Presentation logic & formatting
+* **Entity**: Data models
+* **Router**: Navigation & module assembly
 
-🚀 Getting Started
-Requirements
+Clean architecture with strong separation of concerns.
 
-Xcode 14.0+
-iOS 13.0+
-Swift 5.0+
+---
 
-Installation
+## 🖼️ Screens & Flow
 
-Clone the repository:
+When you run the app, you’ll see:
 
-bashgit clone https://github.com/yourusername/VIPER.git
+1. **Launch Screen** → Navigation to User List
+2. **User List**
+
+   * Table view of users
+   * Pull-to-refresh
+   * Loading indicator
+3. **User Detail**
+
+   * Tap to view details
+   * Basic alert ready for full detail implementation
+
+---
+
+## 🚀 Getting Started
+
+### Requirements
+
+* Xcode 14.0+
+* iOS 13.0+
+* Swift 5.0+
+
+### Installation
+
+```bash
+git clone https://github.com/yourusername/VIPER.git
 cd VIPER
+open Viper.xcodeproj
+```
 
-Open in Xcode:
+Build and run (`⌘+R`).
 
-bashopen Viper.xcodeproj
+---
 
-Build and run (⌘+R)
+## 📁 Project Structure
 
-📁 Complete File Structure
-Create the following folder structure in your Xcode project:
-VIPER/
-├── 📂 Common/
-│   ├── 📂 Protocols/
-│   │   └── 📄 PresenterProtocol.swift
-│   └── 📄 BaseRouter.swift
-│
-├── 📂 Modules/
-│   ├── 📂 UserList/
-│   │   ├── 📂 Entity/
-│   │   │   └── 📄 User.swift
-│   │   ├── 📂 Interactor/
-│   │   │   ├── 📄 UserListInteractor.swift
-│   │   │   └── 📄 UserListInteractorProtocols.swift
-│   │   ├── 📂 Presenter/
-│   │   │   ├── 📄 UserListPresenter.swift
-│   │   │   └── 📄 UserListPresenterProtocols.swift
-│   │   ├── 📂 View/
-│   │   │   ├── 📄 UserListViewController.swift
-│   │   │   └── 📄 UserListViewProtocols.swift
-│   │   ├── 📂 Router/
-│   │   │   ├── 📄 UserListRouter.swift
-│   │   │   └── 📄 UserListRouterProtocols.swift
-│   │   └── 📂 DataManager/
-│   │       └── 📄 UserListDataManager.swift
-│   │
-│   └── 📂 UserDetail/
-│       ├── 📂 Router/
-│       │   └── 📄 UserDetailRouter.swift
-│       └── 📂 Protocols/
-│           └── 📄 UserDetailProtocols.swift
-│
-├── 📂 Services/
-│   ├── 📄 NetworkService.swift
-│   └── 📄 NetworkServiceProtocol.swift
-│
-├── 📂 Tests/
-│   └── 📄 UserListPresenterTests.swift
-│
-├── 📂 Supporting Files/
-│   ├── 📄 AppDelegate.swift
-│   ├── 📄 SceneDelegate.swift
-│   └── 📄 Info.plist
-│
-└── 📄 README.md
-📝 File Placement Guide
-Step 1: Create the folder structure
+```
+.
+├── LICENSE
+├── README.md
+└── Viper
+    ├── Viper
+    │   ├── Assets.xcassets
+    │   │   ├── AccentColor.colorset
+    │   │   │   └── Contents.json
+    │   │   ├── AppIcon.appiconset
+    │   │   │   └── Contents.json
+    │   │   └── Contents.json
+    │   ├── Common
+    │   │   ├── BaseRouter.swift
+    │   │   └── Protocols
+    │   │       └── PresenterProtocol.swift
+    │   ├── Modules
+    │   │   ├── UserDetails
+    │   │   │   ├── Protocols
+    │   │   │   │   └── UserDetailsProtocol.swift
+    │   │   │   └── Router
+    │   │   │       └── UserDetailRouter.swift
+    │   │   └── UserList
+    │   │       ├── DataManager
+    │   │       │   └── UserListDataManager.swift
+    │   │       ├── Entity
+    │   │       │   └── User.swift
+    │   │       ├── Interactor
+    │   │       │   ├── UserListInteractor.swift
+    │   │       │   └── UserListInteractorProtocols.swift
+    │   │       ├── Presenter
+    │   │       │   ├── UserListPresenter.swift
+    │   │       │   └── UserListPresenterProtocols.swift
+    │   │       ├── Router
+    │   │       │   ├── UserListRouter.swift
+    │   │       │   └── UserListRouterProtocols.swift
+    │   │       └── View
+    │   │           ├── UserListViewController.swift
+    │   │           └── UserListViewProtocols.swift
+    │   ├── Services
+    │   │   ├── NetworkService.swift
+    │   │   └── NetworkServiceProtocol.swift
+    │   ├── Supporting Files
+    │   │   ├── AppDelegate.swift
+    │   │   └── SceneDelegate.swift
+    │   └── Tests
+    │       └── UserListPresenterTests.swift
+    ├── Viper.xcodeproj
+    │   ├── project.pbxproj
+    │   ├── project.xcworkspace
+    │   │   ├── contents.xcworkspacedata
+    │   │   ├── xcshareddata
+    │   │   │   └── swiftpm
+    │   │   │       └── configuration
+    │   │   └── xcuserdata
+    │   │       └── aguamonkey.xcuserdatad
+    │   │           └── UserInterfaceState.xcuserstate
+    │   └── xcuserdata
+    │       └── aguamonkey.xcuserdatad
+    │           ├── xcdebugger
+    │           │   └── Breakpoints_v2.xcbkptlist
+    │           └── xcschemes
+    │               └── xcschememanagement.plist
+    └── VIPERTests
+        └── VIPERTests.swift
+```
 
-Right-click on your project in Xcode
-Select "New Group" for each folder
-Name them according to the structure above
+---
 
-Step 2: Add files to correct locations
-Place each file in its corresponding folder:
-Common Layer:
+## 📝 Folder & File Guide
 
-Common/Protocols/PresenterProtocol.swift
-Common/BaseRouter.swift
+1. **Common Layer**
 
-UserList Module:
+   * `Viper/Common/Protocols/PresenterProtocol.swift`
+   * `Viper/Common/BaseRouter.swift`
+2. **UserDetails Module**
 
-Modules/UserList/Entity/User.swift
-Modules/UserList/Interactor/UserListInteractor.swift
-Modules/UserList/Interactor/UserListInteractorProtocols.swift
-Modules/UserList/Presenter/UserListPresenter.swift
-Modules/UserList/Presenter/UserListPresenterProtocols.swift
-Modules/UserList/View/UserListViewController.swift
-Modules/UserList/View/UserListViewProtocols.swift
-Modules/UserList/Router/UserListRouter.swift
-Modules/UserList/Router/UserListRouterProtocols.swift
-Modules/UserList/DataManager/UserListDataManager.swift
+   * `Viper/Modules/UserDetails/Protocols/UserDetailsProtocol.swift`
+   * `Viper/Modules/UserDetails/Router/UserDetailRouter.swift`
+3. **UserList Module**
 
-UserDetail Module:
+   * DataManager, Entity, Interactor, Presenter, Router, View files per above structure
+4. **Services**
+5. **Supporting Files**
+6. **Tests**
 
-Modules/UserDetail/Router/UserDetailRouter.swift
-Modules/UserDetail/Protocols/UserDetailProtocols.swift
+---
 
-Services:
+## ⚙️ Architecture Benefits
 
-Services/NetworkService.swift
-Services/NetworkServiceProtocol.swift
+* **Separation of Concerns**
+* **Testability**
+* **Scalability**
+* **Reusability**
+* **Parallel Development**
 
-Tests:
+---
 
-Tests/UserListPresenterTests.swift
+## 💡 SOLID Principles
 
-Supporting Files:
+1. **SRP**: Single responsibility per component
+2. **OCP**: Open for extension, closed for modification
+3. **LSP**: Protocol-driven substitution
+4. **ISP**: Focused, minimal protocols
+5. **DIP**: Depend on abstractions
 
-Supporting Files/AppDelegate.swift
-Supporting Files/SceneDelegate.swift
+---
 
-🔧 Architecture Benefits
-✅ Advantages
+## 🏭 Use Cases
 
-Separation of Concerns: Each component has a single responsibility
-Testability: All components can be tested in isolation
-Scalability: Easy to add features without affecting existing code
-Reusability: Components can be reused across modules
-Team Collaboration: Clear boundaries enable parallel development
+Examples: E-Commerce, Banking, Social Media apps with individual VIPER modules.
 
-⚠️ Considerations
+---
 
-Complexity: More files and protocols than simpler architectures
-Learning Curve: Requires understanding of all components
-Boilerplate: Initial setup requires more code
+## 🧪 Testing
 
-💡 SOLID Principles Implementation
-1️⃣ Single Responsibility Principle
-Each component has one job:
+Run tests with `⌘+U` or:
 
-View: Display data & capture user input
-Presenter: Format data for display
-Interactor: Execute business logic
-Router: Handle navigation
+```bash
+xcodebuild test -scheme Viper -destination 'platform=iOS Simulator,name=iPhone 14'
+```
 
-2️⃣ Open/Closed Principle
+---
 
-Components are open for extension via protocols
-Closed for modification (changes don't break existing code)
+## 📏 Best Practices
 
-3️⃣ Liskov Substitution Principle
+* Keep Views passive
+* Use DI
+* TDD first
+* Focused protocols
+* Weak references
 
-All components depend on protocols, not concrete implementations
-Any implementation conforming to protocol can be substituted
+---
 
-4️⃣ Interface Segregation Principle
+## 🔧 Extending Architecture
 
-Focused protocols for each component's needs
-No "fat" interfaces with unused methods
+1. Create new module folder
+2. Define protocols
+3. Implement classes
+4. Assemble with Router
+5. Write tests
 
-5️⃣ Dependency Inversion Principle
+---
 
-High-level modules don't depend on low-level modules
-Both depend on abstractions (protocols)
+## 🤝 Contributing
 
-🏭 Production Use Cases
-1. E-Commerce App
-Modules/
-├── ProductList/      # Browse products
-├── ProductDetail/    # View details
-├── Cart/            # Shopping cart
-├── Checkout/        # Payment flow
-└── UserProfile/     # Account management
-2. Banking App
-Modules/
-├── Dashboard/       # Account overview
-├── Transactions/    # Transaction history
-├── Transfer/        # Money transfers
-├── Cards/          # Card management
-└── Settings/       # App preferences
-3. Social Media App
-Modules/
-├── Feed/           # Content feed
-├── Profile/        # User profiles
-├── Messages/       # Direct messaging
-├── Stories/        # Story viewer
-└── Settings/       # Privacy controls
-🧪 Testing
-Setting up Tests
+1. Fork & branch
+2. Commit & push
+3. Open PR
 
-File → New → Target → Unit Testing Bundle
-Name it "VIPERTests"
-Ensure the test file imports: @testable import Viper
+---
 
-Run tests with ⌘+U or:
-bashxcodebuild test -scheme Viper -destination 'platform=iOS Simulator,name=iPhone 14'
-Test Coverage
+## 📚 Resources
 
-✅ Presenter logic
-✅ Interactor business rules
-✅ Router navigation
-✅ View updates
+* [VIPER on objc.io](https://www.objc.io/issues/13-architecture/viper/)
+* [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+* [SOLID Principles](https://en.wikipedia.org/wiki/SOLID)
 
-📚 Best Practices
-Do's ✅
+---
 
-Keep Views passive (no business logic)
-Use dependency injection
-Write tests first (TDD)
-Keep protocols focused
-Use weak references to avoid retain cycles
+## 📝 License
 
-Don'ts ❌
-
-Don't put business logic in Views
-Don't let components know about non-adjacent layers
-Don't create "God" classes
-Don't skip writing tests
-
-🛠️ Extending the Architecture
-Adding a New Module
-
-Create module folder structure:
-
-bashModules/NewFeature/
-├── Entity/
-├── Interactor/
-├── Presenter/
-├── View/
-└── Router/
-
-Define protocols for each component
-Implement concrete classes
-Connect via Router's createModule()
-Write unit tests
-
-Adding Services
-
-Create protocol in Services/
-Implement concrete class
-Inject via initializer
-Mock for testing
-
-🔄 Mock vs Real Data
-The UserListDataManager supports both mock and real API data:
-swift// For development/testing (mock data)
-let dataManager = UserListDataManager(useMockData: true)
-
-// For production (real API)
-let dataManager = UserListDataManager(useMockData: false)
-🤝 Contributing
-
-Fork the repository
-Create your feature branch (git checkout -b feature/AmazingFeature)
-Commit changes (git commit -m 'Add some AmazingFeature')
-Push to branch (git push origin feature/AmazingFeature)
-Open a Pull Request
-
-📖 Resources
-
-VIPER Architecture
-Clean Architecture
-SOLID Principles
-iOS Architecture Patterns
-
-📝 License
-This project is available under the MIT license. See the LICENSE file for more info.
-
-Built with ❤️ for the iOS community
+MIT © aguamonkey
