@@ -1,6 +1,5 @@
 # 🏗️ VIPER Architecture Pattern for iOS
 
-![App Flow](./assets/flow_screenshot1.png) ![User List](./assets/user_list.png) ![Detail View](./assets/user_detail.png) ![Refresh](./assets/refresh.png)
 
 A comprehensive example of VIPER architecture in Swift, demonstrating clean architecture principles and SOLID design patterns through a User Management app.
 
